@@ -19,7 +19,7 @@ func TestInitList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(
 			tt.name, func(t *testing.T) {
-				l := &List{}
+				l := &SequentialList{}
 				if got := l.InitList(); got != tt.want {
 					t.Errorf("InitList() = %v, want %v", got, tt.want)
 				}
@@ -32,12 +32,12 @@ func TestInitList(t *testing.T) {
 func TestListEmpty(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *List
+		l    *SequentialList
 		want bool
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -45,7 +45,7 @@ func TestListEmpty(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -67,12 +67,12 @@ func TestListEmpty(t *testing.T) {
 func TestClearList(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *List
+		l    *SequentialList
 		want Status
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -80,7 +80,7 @@ func TestClearList(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -108,14 +108,14 @@ func TestGetElem(t *testing.T) {
 	}
 	tests := []struct {
 		name     string
-		l        *List
+		l        *SequentialList
 		args     args
 		want     Status
 		wantElem ElemType
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -127,7 +127,7 @@ func TestGetElem(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -139,7 +139,7 @@ func TestGetElem(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -151,7 +151,7 @@ func TestGetElem(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -184,13 +184,13 @@ func TestLocateElem(t *testing.T) {
 	}
 	tests := []struct {
 		name string
-		l    *List
+		l    *SequentialList
 		args args
 		want int
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -201,7 +201,7 @@ func TestLocateElem(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -212,7 +212,7 @@ func TestLocateElem(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -241,14 +241,14 @@ func TestListInsert(t *testing.T) {
 	}
 	tests := []struct {
 		name     string
-		l        *List
+		l        *SequentialList
 		args     args
 		want     Status
-		wantList *List
+		wantList *SequentialList
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 20,
 			},
@@ -260,7 +260,7 @@ func TestListInsert(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
@@ -272,7 +272,7 @@ func TestListInsert(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
@@ -284,7 +284,7 @@ func TestListInsert(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -293,7 +293,7 @@ func TestListInsert(t *testing.T) {
 				e: 1,
 			},
 			want: OK,
-			wantList: &List{
+			wantList: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10},
 				Length: 11,
 			},
@@ -321,16 +321,16 @@ func TestListDelete(t *testing.T) {
 	}
 	tests := []struct {
 		name     string
-		l        *List
+		l        *SequentialList
 		args     args
 		want     Status
 		wantElem ElemType
-		wantList *List
+		wantList *SequentialList
 	}{
 
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -341,7 +341,7 @@ func TestListDelete(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
@@ -352,7 +352,7 @@ func TestListDelete(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
@@ -363,7 +363,7 @@ func TestListDelete(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
@@ -372,7 +372,7 @@ func TestListDelete(t *testing.T) {
 			},
 			want:     OK,
 			wantElem: 9,
-			wantList: &List{
+			wantList: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 10},
 				Length: 9,
 			},
@@ -403,12 +403,12 @@ func TestListDelete(t *testing.T) {
 func TestListLength(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *List
+		l    *SequentialList
 		want int
 	}{
 		{
 			name: "01",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{},
 				Length: 0,
 			},
@@ -416,7 +416,7 @@ func TestListLength(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &List{
+			l: &SequentialList{
 				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
