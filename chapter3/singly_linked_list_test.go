@@ -6,7 +6,7 @@ import (
 )
 
 // 测试初始化线性表
-func TestSequentialInitList(t *testing.T) {
+func TestLinkInitList(t *testing.T) {
 	tests := []struct {
 		name string
 		want Status
@@ -19,7 +19,7 @@ func TestSequentialInitList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(
 			tt.name, func(t *testing.T) {
-				l := &SequentialList{}
+				l := &SinglyLinkedList{}
 				if got := l.InitList(); got != tt.want {
 					t.Errorf("InitList() = %v, want %v", got, tt.want)
 				}
@@ -29,26 +29,20 @@ func TestSequentialInitList(t *testing.T) {
 }
 
 // 测试线性表是否为空函数
-func TestSequentialListEmpty(t *testing.T) {
+func TestSinglyLinkedListEmpty(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *SequentialList
+		l    *SinglyLinkedList
 		want bool
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			want: true,
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			want: false,
 		},
 	}
@@ -64,26 +58,20 @@ func TestSequentialListEmpty(t *testing.T) {
 }
 
 // 测试将线性表清空
-func TestSequentialClearList(t *testing.T) {
+func TestLinkClearList(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *SequentialList
+		l    *SinglyLinkedList
 		want Status
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			want: OK,
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			want: OK,
 		},
 	}
@@ -102,23 +90,20 @@ func TestSequentialClearList(t *testing.T) {
 }
 
 // 测试将线性表L中的第i个位置元素值返回给e
-func TestSequentialGetElem(t *testing.T) {
+func TestLinkGetElem(t *testing.T) {
 	type args struct {
 		i int
 	}
 	tests := []struct {
 		name     string
-		l        *SequentialList
+		l        *SinglyLinkedList
 		args     args
 		want     Status
 		wantElem ElemType
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			args: args{
 				i: 0,
 			},
@@ -127,10 +112,7 @@ func TestSequentialGetElem(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				i: 0,
 			},
@@ -139,10 +121,7 @@ func TestSequentialGetElem(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				i: 11,
 			},
@@ -151,10 +130,7 @@ func TestSequentialGetElem(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				i: 10,
 			},
@@ -178,22 +154,19 @@ func TestSequentialGetElem(t *testing.T) {
 }
 
 // 测试在线性表L中查找与给定值e相等的元素
-func TestSequentialLocateElem(t *testing.T) {
+func TestLinkLocateElem(t *testing.T) {
 	type args struct {
 		e ElemType
 	}
 	tests := []struct {
 		name string
-		l    *SequentialList
+		l    *SinglyLinkedList
 		args args
 		want int
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			args: args{
 				e: 1,
 			},
@@ -201,10 +174,7 @@ func TestSequentialLocateElem(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				e: 11,
 			},
@@ -212,10 +182,7 @@ func TestSequentialLocateElem(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				e: 10,
 			},
@@ -234,24 +201,21 @@ func TestSequentialLocateElem(t *testing.T) {
 }
 
 // 测试添加元素
-func TestSequentialListInsert(t *testing.T) {
+func TestSinglyLinkedListInsert(t *testing.T) {
 	type args struct {
 		i int
 		e ElemType
 	}
 	tests := []struct {
 		name     string
-		l        *SequentialList
+		l        *SinglyLinkedList
 		args     args
 		want     Status
-		wantList *SequentialList
+		wantList *SinglyLinkedList
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 20,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			args: args{
 				i: 20,
 				e: 1,
@@ -260,10 +224,7 @@ func TestSequentialListInsert(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
-				Length: 3,
-			},
+			l:    makeSinglyLinkedList([]ElemType{0, 1, 2}),
 			args: args{
 				i: 0,
 				e: 1,
@@ -272,10 +233,7 @@ func TestSequentialListInsert(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
-				Length: 3,
-			},
+			l:    makeSinglyLinkedList([]ElemType{0, 1, 2}),
 			args: args{
 				i: 5,
 				e: 1,
@@ -284,19 +242,23 @@ func TestSequentialListInsert(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				i: 10,
 				e: 1,
 			},
-			want: OK,
-			wantList: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10},
-				Length: 11,
+			want:     OK,
+			wantList: makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10}),
+		},
+		{
+			name: "05",
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
+			args: args{
+				i: 1,
+				e: 10,
 			},
+			want:     OK,
+			wantList: makeSinglyLinkedList([]ElemType{10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 		},
 	}
 	for _, tt := range tests {
@@ -315,25 +277,22 @@ func TestSequentialListInsert(t *testing.T) {
 }
 
 // 测试删除元素
-func TestSequentialListDelete(t *testing.T) {
+func TestSinglyLinkedListDelete(t *testing.T) {
 	type args struct {
 		i int
 	}
 	tests := []struct {
 		name     string
-		l        *SequentialList
+		l        *SinglyLinkedList
 		args     args
 		want     Status
 		wantElem ElemType
-		wantList *SequentialList
+		wantList *SinglyLinkedList
 	}{
 
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			args: args{
 				i: 1,
 			},
@@ -341,10 +300,7 @@ func TestSequentialListDelete(t *testing.T) {
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
-				Length: 3,
-			},
+			l:    makeSinglyLinkedList([]ElemType{0, 1, 2}),
 			args: args{
 				i: 0,
 			},
@@ -352,10 +308,7 @@ func TestSequentialListDelete(t *testing.T) {
 		},
 		{
 			name: "03",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
-				Length: 3,
-			},
+			l:    makeSinglyLinkedList([]ElemType{0, 1, 2}),
 			args: args{
 				i: 5,
 			},
@@ -363,19 +316,13 @@ func TestSequentialListDelete(t *testing.T) {
 		},
 		{
 			name: "04",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			args: args{
 				i: 9,
 			},
 			want:     OK,
 			wantElem: 9,
-			wantList: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 10},
-				Length: 9,
-			},
+			wantList: makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 10}),
 		},
 	}
 	for _, tt := range tests {
@@ -400,26 +347,20 @@ func TestSequentialListDelete(t *testing.T) {
 }
 
 // 测试获取线性表长度
-func TestSequentialListLength(t *testing.T) {
+func TestSinglyLinkedListLength(t *testing.T) {
 	tests := []struct {
 		name string
-		l    *SequentialList
+		l    *SinglyLinkedList
 		want int
 	}{
 		{
 			name: "01",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
-				Length: 0,
-			},
+			l:    makeSinglyLinkedList([]ElemType{}),
 			want: 0,
 		},
 		{
 			name: "02",
-			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-				Length: 10,
-			},
+			l:    makeSinglyLinkedList([]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
 			want: 10,
 		},
 	}
@@ -432,4 +373,25 @@ func TestSequentialListLength(t *testing.T) {
 			},
 		)
 	}
+}
+
+// 生成单向链表线性表
+func makeSinglyLinkedList(list []ElemType) *SinglyLinkedList {
+	link := &SinglyLinkedList{}
+	link.InitList()
+	if len(list) == 0 {
+		return link
+	}
+	fn := &Node{}
+	n := fn
+	for _, v := range list {
+		n.Next = &Node{
+			Value: v,
+			Next:  nil,
+		}
+		link.Length++
+		n = n.Next
+	}
+	link.Root = fn.Next
+	return link
 }
