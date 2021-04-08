@@ -1,14 +1,19 @@
 package chapter3
 
+const (
+	// 顺序存储线性表初始化最大分配量
+	SequentialMaxSize = 20
+)
+
 // 顺序存储线性表
 type SequentialList struct {
-	Data   [MaxSize]ElemType `json:"data" remark:"数组，存储数据元素"`
-	Length int               `json:"length" remark:"线性表当前长度"`
+	Data   [SequentialMaxSize]ElemType `json:"data" remark:"数组，存储数据元素"`
+	Length int                         `json:"length" remark:"线性表当前长度"`
 }
 
 // 初始化操作，建立一个空的线性表L
 func (l *SequentialList) InitList() Status {
-	l.Data = [MaxSize]ElemType{}
+	l.Data = [SequentialMaxSize]ElemType{}
 	l.Length = 0
 	return OK
 }
@@ -49,7 +54,7 @@ func (l *SequentialList) LocateElem(e ElemType) int {
 // 在线性表L的第i个位置插入新元素e
 func (l *SequentialList) ListInsert(i int, e ElemType) Status {
 	// 如果当前线性表长度已达最大值则返回失败
-	if l.Length == MaxSize {
+	if l.Length == SequentialMaxSize {
 		return Error
 	}
 	// 当要插入的位置比第一位1或者比最后一位大则返回失败
@@ -89,4 +94,3 @@ func (l *SequentialList) ListDelete(i int, e *ElemType) Status {
 func (l *SequentialList) ListLength() int {
 	return l.Length
 }
-

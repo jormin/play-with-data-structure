@@ -38,7 +38,7 @@ func TestSequentialListEmpty(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			want: true,
@@ -46,7 +46,7 @@ func TestSequentialListEmpty(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			want: false,
@@ -73,7 +73,7 @@ func TestSequentialClearList(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			want: OK,
@@ -81,7 +81,7 @@ func TestSequentialClearList(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			want: OK,
@@ -116,7 +116,7 @@ func TestSequentialGetElem(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			args: args{
@@ -128,7 +128,7 @@ func TestSequentialGetElem(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -140,7 +140,7 @@ func TestSequentialGetElem(t *testing.T) {
 		{
 			name: "03",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -152,7 +152,7 @@ func TestSequentialGetElem(t *testing.T) {
 		{
 			name: "04",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -191,7 +191,7 @@ func TestSequentialLocateElem(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			args: args{
@@ -202,7 +202,7 @@ func TestSequentialLocateElem(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -213,7 +213,7 @@ func TestSequentialLocateElem(t *testing.T) {
 		{
 			name: "03",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -249,7 +249,7 @@ func TestSequentialListInsert(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 20,
 			},
 			args: args{
@@ -261,7 +261,7 @@ func TestSequentialListInsert(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
+				Data:   [SequentialMaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
 			args: args{
@@ -273,7 +273,7 @@ func TestSequentialListInsert(t *testing.T) {
 		{
 			name: "03",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
+				Data:   [SequentialMaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
 			args: args{
@@ -285,7 +285,7 @@ func TestSequentialListInsert(t *testing.T) {
 		{
 			name: "04",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -294,7 +294,7 @@ func TestSequentialListInsert(t *testing.T) {
 			},
 			want: OK,
 			wantList: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 10},
 				Length: 11,
 			},
 		},
@@ -331,7 +331,7 @@ func TestSequentialListDelete(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			args: args{
@@ -342,7 +342,7 @@ func TestSequentialListDelete(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
+				Data:   [SequentialMaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
 			args: args{
@@ -353,7 +353,7 @@ func TestSequentialListDelete(t *testing.T) {
 		{
 			name: "03",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{0, 1, 2},
+				Data:   [SequentialMaxSize]ElemType{0, 1, 2},
 				Length: 3,
 			},
 			args: args{
@@ -364,7 +364,7 @@ func TestSequentialListDelete(t *testing.T) {
 		{
 			name: "04",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			args: args{
@@ -373,7 +373,7 @@ func TestSequentialListDelete(t *testing.T) {
 			want:     OK,
 			wantElem: 9,
 			wantList: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 10},
 				Length: 9,
 			},
 		},
@@ -409,7 +409,7 @@ func TestSequentialListLength(t *testing.T) {
 		{
 			name: "01",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{},
+				Data:   [SequentialMaxSize]ElemType{},
 				Length: 0,
 			},
 			want: 0,
@@ -417,7 +417,7 @@ func TestSequentialListLength(t *testing.T) {
 		{
 			name: "02",
 			l: &SequentialList{
-				Data:   [MaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+				Data:   [SequentialMaxSize]ElemType{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
 				Length: 10,
 			},
 			want: 10,
