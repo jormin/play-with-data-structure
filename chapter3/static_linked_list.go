@@ -42,7 +42,7 @@ func (l *StaticLinkedList) InitList() Status {
 		l.Data[i].Cursor = i + 1
 	}
 	// 尾元素的游标指向第一个元素
-	l.Data[StaticLinkedMaxSize-1].Cursor = 0
+	l.Data[StaticLinkedMaxSize-1].Cursor = 1
 	// 线性表长度为0
 	l.Length = 0
 	return OK
