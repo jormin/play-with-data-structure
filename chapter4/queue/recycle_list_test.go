@@ -266,7 +266,7 @@ func TestRecycleList_QueueLength(t *testing.T) {
 	}
 }
 
-// 生成双向循环队列
+// 生成循环队列
 func makeRecycleList(front int, rear int, es []ElemType) *RecycleList {
 	r := new(RecycleList)
 	if len(es) == 0 {

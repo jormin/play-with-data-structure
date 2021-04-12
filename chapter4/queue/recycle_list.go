@@ -10,7 +10,7 @@ const (
 	MaxSize = 20
 )
 
-// 双向循环队列
+// 循环队列
 type RecycleList struct {
 	Front int               `json:"front" remark:"队头"`
 	Rear  int               `json:"rear" remark:"队尾"`

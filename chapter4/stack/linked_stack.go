@@ -13,7 +13,7 @@ type Node struct {
 
 // 链式存储栈
 type LinkedStack struct {
-	Top    *Node `json:"root" remark:"根结点"`
+	Top    *Node `json:"top" remark:"根结点"`
 	Length int   `json:"length" remark:"线性表长度"`
 }
 
