@@ -1,4 +1,4 @@
-package chapter4
+package stack
 
 const (
 	// 操作成功

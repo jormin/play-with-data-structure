@@ -1,4 +1,4 @@
-package chapter4
+package stack
 
 import (
 	"reflect"
@@ -221,26 +221,28 @@ func TestLinkedStack_Pop(t *testing.T) {
 
 // 测试判断栈是否为空
 func TestLinkedStack_StackEmpty(t *testing.T) {
-	type fields struct {
-		Top    *Node
-		Length int
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		want   bool
+		name string
+		s    *LinkedStack
+		want bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "01",
+			s:    makeLinkedStack(),
+			want: true,
+		},
+		{
+			name: "02",
+			s:    makeLinkedStack(1, 2, 3, 4),
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(
 			tt.name, func(t *testing.T) {
-				s := &LinkedStack{
-					Top:    tt.fields.Top,
-					Length: tt.fields.Length,
-				}
-				if got := s.StackEmpty(); got != tt.want {
-					t.Errorf("StackEmpty() = %v, want %v", got, tt.want)
+				res := tt.s.StackEmpty()
+				if res != tt.want {
+					t.Errorf("StackEmpty() = %v, want %v", res, tt.want)
 				}
 			},
 		)
