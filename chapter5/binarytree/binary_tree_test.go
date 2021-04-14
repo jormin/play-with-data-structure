@@ -975,7 +975,6 @@ func TestBinaryTree_String(t *testing.T) {
 
 // 测试Json序列化
 func TestBinaryTree_MarshalJSON(t *testing.T) {
-
 	tests := []struct {
 		name string
 		b    *BinaryTree

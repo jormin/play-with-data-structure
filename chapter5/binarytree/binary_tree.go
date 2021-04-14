@@ -106,7 +106,7 @@ func (b *BinaryTree) MarshalJSON() ([]byte, error) {
 	}
 	var nodes []*Node
 	if !b.TreeEmpty() {
-		nodes = PreOrderTraverse(b.Root)
+		nodes = DLR(b.Root)
 	}
 	d["nodes"] = fmt.Sprintf("%v", nodes)
 	return json.Marshal(d)
