@@ -92,6 +92,26 @@ func (b *BinaryTree) DeleteChild(n *Node, i int) error {
 	return n.DeleteChild(i)
 }
 
+// 统计空指针数
+func (b *BinaryTree) CountEmptyPoints(n *Node) int {
+	i := 0
+	if n == nil {
+		return 1
+	}
+	if n.LeftChild == nil {
+		i++
+	} else {
+		i += b.CountEmptyPoints(n.LeftChild)
+	}
+	if n.RightChild == nil {
+		i++
+	} else {
+		i += b.CountEmptyPoints(n.RightChild)
+	}
+	fmt.Println(n.PrintInfo(), i)
+	return i
+}
+
 // 字符串
 func (b *BinaryTree) String() string {
 	bt, _ := json.Marshal(b)

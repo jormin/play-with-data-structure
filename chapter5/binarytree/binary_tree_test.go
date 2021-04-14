@@ -1035,6 +1035,100 @@ func TestBinaryTree_MarshalJSON(t *testing.T) {
 	}
 }
 
+// 测试统计空指针数量
+func TestBinaryTree_CountEmptyPoints(t *testing.T) {
+	tests := []struct {
+		name string
+		b    *BinaryTree
+		want int
+	}{
+		{
+			name: "01",
+			b:    createBinaryTree(0, 0, nil),
+			want: 1,
+		},
+		{
+			name: "02",
+			b: createBinaryTree(
+				0, 1, &Node{
+					Data: 1,
+				},
+			),
+			want: 2,
+		},
+		{
+			name: "03",
+			b: createBinaryTree(
+				1, 2, &Node{
+					Data: 1,
+					LeftChild: &Node{
+						Data: 2,
+					},
+				},
+			),
+			want: 3,
+		},
+		{
+			name: "04",
+			b: createBinaryTree(
+				2, 2, &Node{
+					Data: 1,
+					LeftChild: &Node{
+						Data: 2,
+					},
+					RightChild: &Node{
+						Data: 3,
+					},
+				},
+			),
+			want: 4,
+		},
+		{
+			name: "05",
+			b: createBinaryTree(
+				2, 2, &Node{
+					Data: 1,
+					LeftChild: &Node{
+						Data: 2,
+						LeftChild: &Node{
+							Data: 4,
+							LeftChild: &Node{
+								Data: 8,
+							},
+						},
+						RightChild: &Node{
+							Data: 5,
+							LeftChild: &Node{
+								Data: 10,
+							},
+						},
+					},
+					RightChild: &Node{
+						Data: 3,
+						LeftChild: &Node{
+							Data: 6,
+							RightChild: &Node{
+								Data: 13,
+							},
+						},
+					},
+				},
+			),
+			want: 10,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(
+			tt.name, func(t *testing.T) {
+				got := tt.b.CountEmptyPoints(tt.b.Root)
+				if got != tt.want {
+					t.Errorf("want empty point num error, got %v, want %v", got, tt.want)
+				}
+			},
+		)
+	}
+}
+
 // 创建二叉树
 func createBinaryTree(dg int, dp int, n *Node) *BinaryTree {
 	if n != nil {
