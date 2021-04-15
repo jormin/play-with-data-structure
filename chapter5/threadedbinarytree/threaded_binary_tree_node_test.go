@@ -1,6 +1,7 @@
-package binarytree
+package threadedbinarytree
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -8,16 +9,16 @@ import (
 )
 
 // 测试获取值
-func TestNode_GetValue(t *testing.T) {
+func TestThreadedNode_GetValue(t *testing.T) {
 	tests := []struct {
 		name    string
-		n       *Node
+		n       *ThreadedNode
 		want    chapter5.ElemType
 		wantErr bool
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -31,7 +32,7 @@ func TestNode_GetValue(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -46,7 +47,7 @@ func TestNode_GetValue(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -77,17 +78,17 @@ func TestNode_GetValue(t *testing.T) {
 }
 
 // 测试设置值
-func TestNode_SetValue(t *testing.T) {
+func TestThreadedNode_SetValue(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		e        chapter5.ElemType
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -101,7 +102,7 @@ func TestNode_SetValue(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -113,7 +114,7 @@ func TestNode_SetValue(t *testing.T) {
 			),
 			e:       2,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   nil,
@@ -126,7 +127,7 @@ func TestNode_SetValue(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -138,7 +139,7 @@ func TestNode_SetValue(t *testing.T) {
 			),
 			e:       3,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   3,
 					P:   1,
@@ -158,8 +159,8 @@ func TestNode_SetValue(t *testing.T) {
 					t.Errorf("SetValue() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && !reflect.DeepEqual(tt.n, tt.wantNode) {
-					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && !reflect.DeepEqual(tt.n, tt.wantThreadedNode) {
+					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -167,16 +168,16 @@ func TestNode_SetValue(t *testing.T) {
 }
 
 // 测试获取双亲结点
-func TestNode_GetParent(t *testing.T) {
+func TestThreadedNode_GetParent(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -190,7 +191,7 @@ func TestNode_GetParent(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -204,7 +205,7 @@ func TestNode_GetParent(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -215,7 +216,7 @@ func TestNode_GetParent(t *testing.T) {
 				},
 			),
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -235,8 +236,8 @@ func TestNode_GetParent(t *testing.T) {
 					t.Errorf("GetParent() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && p.PrintInfo() != tt.wantNode.PrintInfo() {
-					t.Errorf("want node error, got %v, want %v", p.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && p.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+					t.Errorf("want node error, got %v, want %v", p.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -244,16 +245,16 @@ func TestNode_GetParent(t *testing.T) {
 }
 
 // 测试获取左侧孩子结点
-func TestNode_GetLeftChild(t *testing.T) {
+func TestThreadedNode_GetLeftChild(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -267,7 +268,7 @@ func TestNode_GetLeftChild(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -281,7 +282,7 @@ func TestNode_GetLeftChild(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -292,7 +293,7 @@ func TestNode_GetLeftChild(t *testing.T) {
 				},
 			),
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   4,
 					P:   2,
@@ -312,8 +313,8 @@ func TestNode_GetLeftChild(t *testing.T) {
 					t.Errorf("GetLeftChild() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && l.PrintInfo() != tt.wantNode.PrintInfo() {
-					t.Errorf("want node error, got %v, want %v", l.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && l.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+					t.Errorf("want node error, got %v, want %v", l.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -321,16 +322,16 @@ func TestNode_GetLeftChild(t *testing.T) {
 }
 
 // 测试获取右侧孩子结点
-func TestNode_GetRightChild(t *testing.T) {
+func TestThreadedNode_GetRightChild(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -344,7 +345,7 @@ func TestNode_GetRightChild(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -358,7 +359,7 @@ func TestNode_GetRightChild(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -369,7 +370,7 @@ func TestNode_GetRightChild(t *testing.T) {
 				},
 			),
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   5,
 					P:   2,
@@ -389,8 +390,8 @@ func TestNode_GetRightChild(t *testing.T) {
 					t.Errorf("GetRightChild() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && r.PrintInfo() != tt.wantNode.PrintInfo() {
-					t.Errorf("want node error, got %v, want %v", r.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && r.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+					t.Errorf("want node error, got %v, want %v", r.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -398,17 +399,17 @@ func TestNode_GetRightChild(t *testing.T) {
 }
 
 // 测试获取兄弟结点
-func TestNode_GetSibling(t *testing.T) {
+func TestThreadedNode_GetSibling(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 		wantPos  int
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -422,7 +423,7 @@ func TestNode_GetSibling(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -436,7 +437,7 @@ func TestNode_GetSibling(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -447,7 +448,7 @@ func TestNode_GetSibling(t *testing.T) {
 				},
 			),
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   3,
 					P:   1,
@@ -461,7 +462,7 @@ func TestNode_GetSibling(t *testing.T) {
 		},
 		{
 			name: "04",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   3,
 					P:   1,
@@ -472,7 +473,7 @@ func TestNode_GetSibling(t *testing.T) {
 				},
 			),
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -494,8 +495,8 @@ func TestNode_GetSibling(t *testing.T) {
 					return
 				}
 				if err == nil {
-					if s.PrintInfo() != tt.wantNode.PrintInfo() {
-						t.Errorf("want node error, got %v, want %v", s.PrintInfo(), tt.wantNode.PrintInfo())
+					if s.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+						t.Errorf("want node error, got %v, want %v", s.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 					}
 					if pos != tt.wantPos {
 						t.Errorf("want pos error, got %v, want %v", pos, tt.wantPos)
@@ -507,18 +508,18 @@ func TestNode_GetSibling(t *testing.T) {
 }
 
 // 测试添加子节点
-func TestNode_InsertChild(t *testing.T) {
+func TestThreadedNode_InsertChild(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		i        int
 		e        chapter5.ElemType
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -533,7 +534,7 @@ func TestNode_InsertChild(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -549,7 +550,7 @@ func TestNode_InsertChild(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -565,7 +566,7 @@ func TestNode_InsertChild(t *testing.T) {
 		},
 		{
 			name: "04",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -581,7 +582,7 @@ func TestNode_InsertChild(t *testing.T) {
 		},
 		{
 			name: "05",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -594,7 +595,7 @@ func TestNode_InsertChild(t *testing.T) {
 			i:       Left,
 			e:       4,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -607,7 +608,7 @@ func TestNode_InsertChild(t *testing.T) {
 		},
 		{
 			name: "06",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -620,7 +621,7 @@ func TestNode_InsertChild(t *testing.T) {
 			i:       Right,
 			e:       5,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -640,8 +641,8 @@ func TestNode_InsertChild(t *testing.T) {
 					t.Errorf("InsertChild() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && tt.n.PrintInfo() != tt.wantNode.PrintInfo() {
-					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && tt.n.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -649,17 +650,17 @@ func TestNode_InsertChild(t *testing.T) {
 }
 
 // 测试删除子节点
-func TestNode_DeleteChild(t *testing.T) {
+func TestThreadedNode_DeleteChild(t *testing.T) {
 	tests := []struct {
 		name     string
-		n        *Node
+		n        *ThreadedNode
 		i        int
 		wantErr  bool
-		wantNode *Node
+		wantThreadedNode *ThreadedNode
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -674,7 +675,7 @@ func TestNode_DeleteChild(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -689,7 +690,7 @@ func TestNode_DeleteChild(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -704,7 +705,7 @@ func TestNode_DeleteChild(t *testing.T) {
 		},
 		{
 			name: "04",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -719,7 +720,7 @@ func TestNode_DeleteChild(t *testing.T) {
 		},
 		{
 			name: "05",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -731,7 +732,7 @@ func TestNode_DeleteChild(t *testing.T) {
 			),
 			i:       Left,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -744,7 +745,7 @@ func TestNode_DeleteChild(t *testing.T) {
 		},
 		{
 			name: "06",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -756,7 +757,7 @@ func TestNode_DeleteChild(t *testing.T) {
 			),
 			i:       Right,
 			wantErr: false,
-			wantNode: createNode(
+			wantThreadedNode: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -776,8 +777,8 @@ func TestNode_DeleteChild(t *testing.T) {
 					t.Errorf("DeleteChild() error = %v, wantErr %v", err, tt.wantErr)
 					return
 				}
-				if err == nil && tt.n.PrintInfo() != tt.wantNode.PrintInfo() {
-					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantNode.PrintInfo())
+				if err == nil && tt.n.PrintInfo() != tt.wantThreadedNode.PrintInfo() {
+					t.Errorf("want node error, got %v, want %v", tt.n.PrintInfo(), tt.wantThreadedNode.PrintInfo())
 				}
 			},
 		)
@@ -785,15 +786,15 @@ func TestNode_DeleteChild(t *testing.T) {
 }
 
 // 测试字符串
-func TestNode_String(t *testing.T) {
+func TestThreadedNode_String(t *testing.T) {
 	tests := []struct {
 		name string
-		n    *Node
+		n    *ThreadedNode
 		want string
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -807,7 +808,7 @@ func TestNode_String(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -821,7 +822,7 @@ func TestNode_String(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -839,7 +840,7 @@ func TestNode_String(t *testing.T) {
 			tt.name, func(t *testing.T) {
 				got := tt.n.String()
 				if got != tt.want {
-					t.Errorf("want string error, got %v, want %v", got, tt.want)
+					t.Errorf("want string error, got %v, wantErr %v", got, tt.want)
 					return
 				}
 			},
@@ -848,15 +849,15 @@ func TestNode_String(t *testing.T) {
 }
 
 // 测试打印信息
-func TestNode_PrintInfo(t *testing.T) {
+func TestThreadedNode_PrintInfo(t *testing.T) {
 	tests := []struct {
 		name string
-		n    *Node
+		n    *ThreadedNode
 		want string
 	}{
 		{
 			name: "01",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   nil,
 					P:   nil,
@@ -870,7 +871,7 @@ func TestNode_PrintInfo(t *testing.T) {
 		},
 		{
 			name: "02",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   1,
 					P:   nil,
@@ -884,7 +885,7 @@ func TestNode_PrintInfo(t *testing.T) {
 		},
 		{
 			name: "03",
-			n: createNode(
+			n: createThreadedNode(
 				createParams{
 					V:   2,
 					P:   1,
@@ -910,6 +911,129 @@ func TestNode_PrintInfo(t *testing.T) {
 	}
 }
 
+// 空结点
+var tn1 *ThreadedNode
+
+// 只有根结点
+var tn2 = &ThreadedNode{
+	Data: 1,
+}
+
+// 根结点只有左子树
+var tn3 = &ThreadedNode{
+	Data: 1,
+	LeftChild: &ThreadedNode{
+		Data: 2,
+	},
+}
+
+// 根结点有左子树和右子树
+var tn4 = &ThreadedNode{
+	Data: 1,
+	LeftChild: &ThreadedNode{
+		Data: 2,
+	},
+	RightChild: &ThreadedNode{
+		Data: 3,
+	},
+}
+
+// 完整结点
+var tn5 = &ThreadedNode{
+	Data: 1,
+	LeftChild: &ThreadedNode{
+		Data: 2,
+		LeftChild: &ThreadedNode{
+			Data: 4,
+			LeftChild: &ThreadedNode{
+				Data: 8,
+			},
+			RightChild: &ThreadedNode{
+				Data: 9,
+			},
+		},
+		RightChild: &ThreadedNode{
+			Data: 5,
+			LeftChild: &ThreadedNode{
+				Data: 10,
+			},
+			RightChild: &ThreadedNode{
+				Data: 11,
+			},
+		},
+	},
+	RightChild: &ThreadedNode{
+		Data: 3,
+		LeftChild: &ThreadedNode{
+			Data: 6,
+			LeftChild: &ThreadedNode{
+				Data: 12,
+			},
+			RightChild: &ThreadedNode{
+				Data: 13,
+			},
+		},
+		RightChild: &ThreadedNode{
+			Data: 7,
+			LeftChild: &ThreadedNode{
+				Data: 14,
+			},
+			RightChild: &ThreadedNode{
+				Data: 15,
+			},
+		},
+	},
+}
+
+// 测试线索前序遍历
+func TestThreadedNode_ThreadInfoDLR(t *testing.T) {
+	tests := []struct {
+		name string
+		n    *ThreadedNode
+		want string
+	}{
+		{
+			name: "01",
+			n:    tn1,
+			want: "[]",
+		},
+		{
+			name: "02",
+			n:    tn2,
+			want: "[1]",
+		},
+		{
+			name: "03",
+			n:    tn3,
+			want: "[1 2]",
+		},
+		{
+			name: "04",
+			n:    tn4,
+			want: "[1 2 3]",
+		},
+		{
+			name: "05",
+			n:    tn5,
+			want: "[1 2 4 8 9 5 10 11 3 6 12 13 7 14 15]",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(
+			tt.name, func(t *testing.T) {
+				DealThreadedNode(tt.n)
+				// 处理线索数据
+				_ = DLR(tt.n, new(ThreadData))
+				ns := tt.n.ThreadInfoDLR()
+				got := fmt.Sprintf("%v", ns)
+				if got != tt.want {
+					t.Errorf("want error, got %v, want %v", got, tt.want)
+				}
+			},
+		)
+	}
+}
+
 // 创建参数
 type createParams struct {
 	V   interface{} `json:"v" remark:"值"`
@@ -921,21 +1045,21 @@ type createParams struct {
 }
 
 // 生成结点
-func createNode(params createParams) *Node {
-	var p, n, s, l, r *Node
+func createThreadedNode(params createParams) *ThreadedNode {
+	var p, n, s, l, r *ThreadedNode
 	if params.V == nil {
 		return nil
 	}
-	n = &Node{
+	n = &ThreadedNode{
 		Data: chapter5.ElemType(params.V.(int)),
 	}
 	if params.S != nil {
-		s = &Node{
+		s = &ThreadedNode{
 			Data: chapter5.ElemType(params.S.(int)),
 		}
 	}
 	if params.P != nil {
-		var pl, pr *Node
+		var pl, pr *ThreadedNode
 		if params.Pos == Left {
 			pl = n
 			pr = s
@@ -943,7 +1067,7 @@ func createNode(params createParams) *Node {
 			pl = s
 			pr = n
 		}
-		p = &Node{
+		p = &ThreadedNode{
 			Data:       chapter5.ElemType(params.P.(int)),
 			Parent:     nil,
 			LeftChild:  pl,
@@ -955,13 +1079,13 @@ func createNode(params createParams) *Node {
 		}
 	}
 	if params.L != nil {
-		l = &Node{
+		l = &ThreadedNode{
 			Data:   chapter5.ElemType(params.L.(int)),
 			Parent: n,
 		}
 	}
 	if params.R != nil {
-		r = &Node{
+		r = &ThreadedNode{
 			Data:   chapter5.ElemType(params.R.(int)),
 			Parent: n,
 		}

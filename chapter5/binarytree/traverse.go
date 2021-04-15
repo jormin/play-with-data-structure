@@ -12,7 +12,7 @@ func DLR(n *Node) []*Node {
 	return ns
 }
 
-// 中序遍历
+// 中序遍历（LChild、Data、RChild）
 func LDR(n *Node) []*Node {
 	var ns []*Node
 	if n == nil {
@@ -24,7 +24,7 @@ func LDR(n *Node) []*Node {
 	return ns
 }
 
-// 后续遍历
+// 后续遍历（LChild、RChild、Data）
 func LRD(n *Node) []*Node {
 	var ns []*Node
 	if n == nil {
