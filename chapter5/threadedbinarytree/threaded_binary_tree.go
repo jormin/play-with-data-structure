@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"gitlab.wcxst.com/jormin/play-with-data-structure/chapter5"
+	"github.com/jormin/play-with-data-structure/chapter5"
 )
 
 // 二叉树

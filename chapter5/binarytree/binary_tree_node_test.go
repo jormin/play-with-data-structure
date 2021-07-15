@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.wcxst.com/jormin/play-with-data-structure/chapter5"
+	"github.com/jormin/play-with-data-structure/chapter5"
 )
 
 // 测试获取值
